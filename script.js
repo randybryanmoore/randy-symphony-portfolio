@@ -673,31 +673,9 @@ window.toggleFeedbackDrawer = function(e) {
         resetAllNotes();
       };
 
-      // Copy All Notes Formatted for AI & Immediately Reset
-      if (copyAiBtn) {
-        copyAiBtn.addEventListener('click', () => {
-          if (notesList.length === 0) {
-            alert('No notes pinned yet! Click "Pin Feedback" to add critique.');
-            return;
-          }
-          let prompt = "### Review Notes for Richmond Symphony Portfolio Refinements\n\n";
-          notesList.forEach(n => {
-            prompt += `**[#${n.id}] [${n.category}] on <${n.tag}> "${n.targetText}"**\n`;
-            prompt += `- **Feedback/Revision**: ${n.comment}\n\n`;
-          });
-          
-          copyToClipboard(prompt);
-          copyAiBtn.innerText = 'Copied & Reset! ✓';
-          copyAiBtn.style.background = 'var(--maroon)';
-          copyAiBtn.style.color = 'var(--cream)';
-          resetAllNotes();
-          setTimeout(() => { 
-            copyAiBtn.innerText = 'Copy All Notes for Antigravity';
-            copyAiBtn.style.background = '';
-            copyAiBtn.style.color = '';
-          }, 2400);
-        });
-      }
+      // Copy handler is bound via onclick="window.copyAllNotesAndReset(event)"
+      // in HTML, which calls window.executeCopyAndReset() above.
+      // No duplicate addEventListener needed.
     } catch (err) {
       console.warn('Annotation suite init error:', err);
     }
