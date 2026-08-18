@@ -1590,15 +1590,16 @@ body.annotation-active {
 
 /* Floating Popover */
 .annotation-popover {
-  position: fixed;
-  background: var(--paper);
-  color: var(--ink);
-  border: 2px solid var(--maroon);
-  border-radius: 8px;
-  padding: 18px 20px;
-  width: 330px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
-  z-index: 1000000;
+  position: fixed !important;
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  border: 2.5px solid var(--maroon) !important;
+  border-radius: 10px !important;
+  padding: 18px 20px !important;
+  width: 330px !important;
+  max-width: calc(100vw - 32px) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
+  z-index: 2147483647 !important;
   display: none;
 }
 
@@ -1713,20 +1714,25 @@ body.annotation-active {
 
 /* Feedback Drawer */
 .feedback-drawer {
-  position: fixed;
-  bottom: 84px;
-  right: 24px;
-  width: 380px;
-  max-height: 520px;
-  background: var(--paper);
-  color: var(--ink);
-  border: 2px solid var(--maroon);
-  border-radius: 8px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  position: fixed !important;
+  bottom: 84px !important;
+  right: 24px !important;
+  width: 380px !important;
+  max-width: calc(100vw - 32px) !important;
+  max-height: min(560px, 75vh) !important;
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  border: 2.5px solid var(--maroon) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6) !important;
   display: none;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 999998;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  z-index: 2147483647 !important;
+}
+
+.feedback-drawer.open {
+  display: flex !important;
 }
 
 .drawer-header {
