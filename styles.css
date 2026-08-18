@@ -626,39 +626,42 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--line-light);
-  padding-bottom: 18px;
-  margin-bottom: 18px;
+  gap: 24px;
+  border-bottom: 1.5px solid var(--line-light);
+  padding-bottom: 28px;
+  margin-bottom: 26px;
+  flex-wrap: wrap;
 }
 
 .candidate-avatar-wrap {
   display: flex;
-  gap: 20px;
+  gap: 24px;
   align-items: center;
   flex: 1;
-  min-width: 260px;
+  min-width: 280px;
 }
 
 .candidate-avatar {
-  width: 160px;
-  height: 160px;
-  min-width: 160px;
-  min-height: 160px;
-  border-radius: 12px;
-  border: 3.5px solid var(--cream);
+  width: 210px;
+  height: 210px;
+  min-width: 210px;
+  min-height: 210px;
+  border-radius: 14px;
+  border: 4px solid var(--cream);
   object-fit: cover;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
   background: var(--navy);
   display: block;
 }
 
 .candidate-name {
   font-family: var(--serif);
-  font-size: 1.35rem;
-  font-weight: 600;
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  font-weight: 700;
   color: var(--cream);
   line-height: 1.1;
-  margin-bottom: 3px;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
 }
 
 .candidate-target-role {
@@ -1531,20 +1534,21 @@ body.annotation-active {
 
 /* Floating Dock */
 .annotation-dock {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: var(--navy);
-  color: var(--cream);
-  border: 1.5px solid rgba(242, 234, 223, 0.5);
-  border-radius: 999px;
-  padding: 6px 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: var(--shadow);
-  z-index: 999999;
-  user-select: none;
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  background: #0D1A32 !important;
+  color: #F2EADF !important;
+  border: 2px solid #F2EADF !important;
+  border-radius: 999px !important;
+  padding: 8px 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(242, 234, 223, 0.25) !important;
+  z-index: 2147483647 !important;
+  user-select: none !important;
+  backdrop-filter: blur(8px) !important;
 }
 
 .dock-btn {
@@ -1998,12 +2002,22 @@ body.annotation-active {
   }
 
   .annotation-dock {
-    bottom: 12px;
-    right: 12px;
-    left: 12px;
-    padding: 4px 8px;
-    justify-content: space-around;
-  }
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  background: #0D1A32 !important;
+  color: #F2EADF !important;
+  border: 2px solid #F2EADF !important;
+  border-radius: 999px !important;
+  padding: 8px 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(242, 234, 223, 0.25) !important;
+  z-index: 2147483647 !important;
+  user-select: none !important;
+  backdrop-filter: blur(8px) !important;
+}
 
   .dock-btn {
     padding: 8px 10px;
@@ -2025,5 +2039,28 @@ body.annotation-active {
     width: 44px;
     height: 52px;
     font-size: 1.5rem;
+  }
+}
+
+/* Responsive Mobile Floating Dock */
+@media (max-width: 768px) {
+  .annotation-dock {
+    bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    width: auto !important;
+    max-width: calc(100vw - 24px) !important;
+    padding: 6px 12px !important;
+    gap: 6px !important;
+  }
+  .dock-btn {
+    padding: 6px 10px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.02em !important;
+  }
+  .dock-badge {
+    font-size: 9px !important;
+    padding: 1px 5px !important;
   }
 }
