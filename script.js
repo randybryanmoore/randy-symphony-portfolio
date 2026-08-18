@@ -1,3 +1,10 @@
+window.copyAllNotesAndReset = function(e) {
+  if (e && e.stopPropagation) { e.preventDefault(); e.stopPropagation(); }
+  if (typeof window.executeCopyAndReset === 'function') {
+    window.executeCopyAndReset();
+  }
+};
+
 // =========================================================================
 // Richmond Symphony Advancement Systems & Operations Portfolio Suite
 // Candidate: Randy Bryan Moore, MSW
@@ -639,6 +646,32 @@ window.toggleFeedbackDrawer = function(e) {
           return Promise.resolve(); // Continue reset even if clipboard is restricted
         }
       }
+
+      // Expose executeCopyAndReset globally
+      window.executeCopyAndReset = function() {
+        if (notesList.length === 0) {
+          alert('No notes pinned yet! Click "Pin Feedback" to add critique.');
+          return;
+        }
+        let prompt = "### Review Notes for Richmond Symphony Portfolio Refinements\n\n";
+        notesList.forEach(n => {
+          prompt += `**[#${n.id}] [${n.category}] on <${n.tag}> "${n.targetText}"**\n`;
+          prompt += `- **Feedback/Revision**: ${n.comment}\n\n`;
+        });
+        
+        copyToClipboard(prompt);
+        if (copyAiBtn) {
+          copyAiBtn.innerText = 'Copied & Reset! ✓';
+          copyAiBtn.style.background = 'var(--maroon)';
+          copyAiBtn.style.color = 'var(--cream)';
+          setTimeout(() => { 
+            copyAiBtn.innerText = 'Copy All Notes for Antigravity';
+            copyAiBtn.style.background = '';
+            copyAiBtn.style.color = '';
+          }, 2400);
+        }
+        resetAllNotes();
+      };
 
       // Copy All Notes Formatted for AI & Immediately Reset
       if (copyAiBtn) {
