@@ -547,6 +547,7 @@
     });
 
     // Update Drawer UI
+    window.refreshFeedbackDrawerUI = updateDrawer;
     function updateDrawer() {
       if (dockCount) dockCount.innerText = notesList.length;
       if (drawerCount) drawerCount.innerText = notesList.length;
