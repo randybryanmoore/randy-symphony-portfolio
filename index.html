@@ -900,7 +900,7 @@
     <button class="dock-btn" id="dock-live-edit-btn" title="Edit copy directly in place">
       <span>✏️ Live Edit</span>
     </button>
-    <button class="dock-btn" id="dock-view-drawer-btn" title="View all pinned notes">
+    <button class="dock-btn" id="dock-view-drawer-btn" onclick="window.toggleFeedbackDrawer(event)" title="View all pinned notes">
       <span>💬 Notes</span> <span class="dock-badge" id="dock-notes-count">0</span>
     </button>
   </div>
@@ -930,7 +930,7 @@
   <div class="feedback-drawer" id="feedback-drawer">
     <div class="drawer-header">
       <h4>Review Notes (<span id="drawer-count">0</span>)</h4>
-      <button id="drawer-close-btn" style="background: transparent; border: none; color: var(--cream); cursor: pointer; font-size: 1.1rem; padding: 2px 6px;">✕</button>
+      <button id="drawer-close-btn" onclick="window.closeFeedbackDrawer(event)" style="background: transparent; border: none; color: var(--cream); cursor: pointer; font-size: 1.1rem; padding: 2px 6px;">✕</button>
     </div>
     <div class="drawer-body" id="drawer-items-list">
       <p style="color: var(--muted); font-size: 13px; font-style: italic;">No feedback pinned yet. Turn on 'Pin Feedback' and click any headline, paragraph, card, or button.</p>
