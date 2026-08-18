@@ -344,19 +344,57 @@
       });
     }
 
-    // Toggle Drawer
-    if (drawerToggle) {
-      drawerToggle.addEventListener('click', () => {
-        if (drawer) {
-          drawer.style.display = (drawer.style.display === 'flex') ? 'none' : 'flex';
+    // Global Feedback Drawer Helpers
+    window.openFeedbackDrawer = function() {
+      if (drawer) {
+        drawer.classList.add('open');
+        drawer.style.display = 'flex';
+        updateDrawer();
+      }
+    };
+
+    window.closeFeedbackDrawer = function() {
+      if (drawer) {
+        drawer.classList.remove('open');
+        drawer.style.display = 'none';
+      }
+    };
+
+    window.toggleFeedbackDrawer = function() {
+      if (drawer) {
+        const isShown = drawer.classList.contains('open') || drawer.style.display === 'flex';
+        if (isShown) {
+          window.closeFeedbackDrawer();
+        } else {
+          window.openFeedbackDrawer();
         }
+      }
+    };
+
+    // Toggle Drawer Button Listeners
+    if (drawerToggle) {
+      drawerToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        window.toggleFeedbackDrawer();
       });
     }
     if (drawerClose) {
-      drawerClose.addEventListener('click', () => {
-        if (drawer) drawer.style.display = 'none';
+      drawerClose.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        window.closeFeedbackDrawer();
       });
     }
+
+    // Close drawer when clicking outside
+    document.addEventListener('click', (e) => {
+      if (drawer && (drawer.classList.contains('open') || drawer.style.display === 'flex')) {
+        if (!drawer.contains(e.target) && !e.target.closest('#annotation-dock') && !e.target.closest('.annotation-element-badge')) {
+          window.closeFeedbackDrawer();
+        }
+      }
+    });
 
     // Tag Selection
     tagChips.forEach(chip => {
@@ -607,6 +645,7 @@
           }, 2400);
         }).catch(err => {
           console.error('Clipboard copy failed:', err);
+          // Fallback reset even if clipboard requires prompt
           resetAllNotes();
         });
       });
