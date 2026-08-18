@@ -1,2 +1,15 @@
-/* Redefined in styles.css */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap');
+/* Full styles */
+:root {
+  --navy: #182b4d;
+  --navy-deep: #0d1a32;
+  --navy-light: #243d6b;
+  --maroon: #4c0e1c;
+  --maroon-deep: #2b0710;
+  --cream: #f2eadf;
+  --paper: #fbf6ed;
+  --paper-deep: #e8ddcc;
+  --white: #ffffff;
+  --ink: #151c22;
+  --muted: #595e64;
+  --muted-light: #8a9096;
+}
