@@ -613,6 +613,33 @@ window.toggleFeedbackDrawer = function(e) {
         updateDrawer();
       }
 
+      // Universal Clipboard Copy with Fallback
+      function copyToClipboard(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          return navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+        } else {
+          return fallbackCopy(text);
+        }
+      }
+
+      function fallbackCopy(text) {
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          ta.style.top = '-9999px';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          document.execCommand('copy');
+          ta.remove();
+          return Promise.resolve();
+        } catch (e) {
+          return Promise.resolve(); // Continue reset even if clipboard is restricted
+        }
+      }
+
       // Copy All Notes Formatted for AI & Immediately Reset
       if (copyAiBtn) {
         copyAiBtn.addEventListener('click', () => {
@@ -626,20 +653,16 @@ window.toggleFeedbackDrawer = function(e) {
             prompt += `- **Feedback/Revision**: ${n.comment}\n\n`;
           });
           
-          navigator.clipboard.writeText(prompt).then(() => {
-            copyAiBtn.innerText = 'Copied & Reset! ✓';
-            copyAiBtn.style.background = 'var(--maroon)';
-            copyAiBtn.style.color = 'var(--cream)';
-            resetAllNotes();
-            setTimeout(() => { 
-              copyAiBtn.innerText = 'Copy All Notes for Antigravity';
-              copyAiBtn.style.background = '';
-              copyAiBtn.style.color = '';
-            }, 2400);
-          }).catch(err => {
-            console.error('Clipboard copy failed:', err);
-            resetAllNotes();
-          });
+          copyToClipboard(prompt);
+          copyAiBtn.innerText = 'Copied & Reset! ✓';
+          copyAiBtn.style.background = 'var(--maroon)';
+          copyAiBtn.style.color = 'var(--cream)';
+          resetAllNotes();
+          setTimeout(() => { 
+            copyAiBtn.innerText = 'Copy All Notes for Antigravity';
+            copyAiBtn.style.background = '';
+            copyAiBtn.style.color = '';
+          }, 2400);
         });
       }
     } catch (err) {
