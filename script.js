@@ -558,7 +558,28 @@
 
     updateDrawer();
 
-    // Copy All Notes Formatted for AI
+    // Function to completely reset all notes and element badges
+    function resetAllNotes() {
+      // 1. Remove all badge markers attached to elements
+      document.querySelectorAll('.annotation-element-badge').forEach(b => b.remove());
+      
+      // 2. Remove active outline highlights on elements
+      document.querySelectorAll('.annotation-target-active').forEach(el => {
+        el.classList.remove('annotation-target-active');
+        el.removeAttribute('data-annotation-id');
+      });
+      
+      // 3. Clear memory and persistent storage
+      notesList = [];
+      try {
+        localStorage.removeItem('rbm_symphony_notes');
+      } catch (e) {}
+      
+      // 4. Update UI counts and empty state list
+      updateDrawer();
+    }
+
+    // Copy All Notes Formatted for AI & Immediately Reset
     if (copyAiBtn) {
       copyAiBtn.addEventListener('click', () => {
         if (notesList.length === 0) {
@@ -570,9 +591,23 @@
           prompt += `**[#${n.id}] [${n.category}] on <${n.tag}> "${n.targetText}"**\n`;
           prompt += `- **Feedback/Revision**: ${n.comment}\n\n`;
         });
+        
         navigator.clipboard.writeText(prompt).then(() => {
-          copyAiBtn.innerText = 'Copied to Clipboard! ✓';
-          setTimeout(() => { copyAiBtn.innerText = 'Copy All Notes for Antigravity'; }, 2400);
+          copyAiBtn.innerText = 'Copied & Reset! ✓';
+          copyAiBtn.style.background = 'var(--maroon)';
+          copyAiBtn.style.color = 'var(--cream)';
+          
+          // Reset all notes, badges, and storage
+          resetAllNotes();
+          
+          setTimeout(() => { 
+            copyAiBtn.innerText = 'Copy All Notes for Antigravity';
+            copyAiBtn.style.background = '';
+            copyAiBtn.style.color = '';
+          }, 2400);
+        }).catch(err => {
+          console.error('Clipboard copy failed:', err);
+          resetAllNotes();
         });
       });
     }
