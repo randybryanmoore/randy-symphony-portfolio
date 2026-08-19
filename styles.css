@@ -693,12 +693,11 @@ img {
   margin: 0 auto 20px;
 }
 
-/* Name/role sit beside the QR beneath the portrait so the large
-   scannable QR never overlaps the candidate name. */
+/* Name/role removed — QR code now centered beneath the portrait. */
 .candidate-identity-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 20px;
   min-width: 0;
 }
@@ -743,12 +742,12 @@ img {
 @media (max-width: 560px) {
   .candidate-identity-row {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 18px;
   }
 
   .candidate-qr-frame {
-    align-self: flex-start;
+    align-self: center;
   }
 }
 
@@ -912,7 +911,7 @@ img {
 /* Interactive Case Study Explorer */
 .case-study-explorer {
   border: 1px solid rgba(242, 234, 223, 0.3);
-  background: var(--maroon);
+  background: var(--block-fill);
   overflow: hidden;
 }
 
