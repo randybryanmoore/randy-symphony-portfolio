@@ -443,14 +443,29 @@ window.reviewToolsEnabled = reviewToolsEnabled;
       }
 
       function toggleEditableElements(enable) {
-        const candidates = document.querySelectorAll('h1, h2, h3, h4, p, li, strong, blockquote, .stat-num, .stat-label, .wordmark-title');
+        const candidates = document.querySelectorAll('h1, h2, h3, h4, h5, p, li, strong, em, span, td, th, blockquote, .stat-num, .stat-label, .wordmark-title, .dcard h3, .dcard p, .pillar-item strong, .pillar-item span');
         candidates.forEach(el => {
-          if (!el.closest('#annotation-dock') && !el.closest('#annotation-popover') && !el.closest('#feedback-drawer') && !el.closest('#passcode-gate')) {
+          if (!el.closest('#annotation-dock') && !el.closest('#annotation-popover') && !el.closest('#feedback-drawer') && !el.closest('#passcode-gate') && !el.closest('.print-btn-bar') && !el.closest('.top-nav')) {
             el.contentEditable = enable ? 'true' : 'false';
-            el.style.outline = enable ? '1.5px dashed rgba(76, 14, 28, 0.4)' : '';
+            el.style.outline = enable ? '1.5px dashed rgba(223, 202, 116, 0.75)' : '';
             el.style.outlineOffset = enable ? '2px' : '';
+            el.style.cursor = enable ? 'text' : '';
           }
         });
+        
+        let banner = document.getElementById('live-edit-toast');
+        if (enable) {
+          if (!banner) {
+            banner = document.createElement('div');
+            banner.id = 'live-edit-toast';
+            banner.style.cssText = 'position:fixed; top:18px; left:50%; transform:translateX(-50%); background:#182b4d; color:#dfca74; border:1px solid #dfca74; padding:8px 18px; border-radius:30px; font-family:var(--font-mono, monospace); font-size:12px; font-weight:700; box-shadow:0 8px 24px rgba(0,0,0,0.35); z-index:99999; display:flex; align-items:center; gap:8px; pointer-events:none; transition:all 0.3s ease;';
+            banner.innerHTML = '<span>✏️ Live Edit Active: Click any text directly on the page to type edits in place!</span>';
+            document.body.appendChild(banner);
+          }
+          banner.style.display = 'flex';
+        } else if (banner) {
+          banner.style.display = 'none';
+        }
       }
 
       // Tag Selection
