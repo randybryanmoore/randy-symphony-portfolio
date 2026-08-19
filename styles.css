@@ -949,13 +949,15 @@ img {
 
 .tab-btn:hover {
   color: var(--cream);
-  background: var(--blue-l3);
+  background: rgba(76, 14, 28, 0.5);
+  border-bottom-color: rgba(223, 202, 116, 0.5);
 }
 
 .tab-btn.active {
-  color: var(--cream);
-  background: var(--blue-top);
-  border-bottom-color: var(--cream);
+  color: #ffffff;
+  background: var(--maroon);
+  border-bottom-color: var(--gold-light);
+  box-shadow: inset 0 2px 0 var(--gold-light);
 }
 
 .tab-pane {
@@ -1045,17 +1047,18 @@ img {
 }
 
 .lifecycle-stage {
-  background: var(--paper);
+  background: var(--maroon);
   border: 1px solid var(--line);
   padding: 20px;
-  border-top: 4px solid var(--maroon);
+  border-top: 4px solid var(--gold-light);
+  color: #ffffff;
   transition: transform 160ms ease;
 }
 
 .section-navy .lifecycle-stage {
-  background: var(--block-fill);
+  background: var(--maroon);
   border-color: rgba(242, 234, 223, 0.18);
-  border-top-color: var(--cream);
+  border-top-color: var(--gold-light);
 }
 
 .lifecycle-stage:hover {
@@ -1066,14 +1069,14 @@ img {
   font-family: var(--mono);
   font-size: 9.5px;
   font-weight: 800;
-  color: var(--maroon);
+  color: var(--gold-light);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 6px;
 }
 
 .section-navy .lifecycle-stage__tag {
-  color: var(--cream);
+  color: var(--gold-light);
   opacity: 0.85;
 }
 
