@@ -376,12 +376,20 @@ img {
   flex-direction: column;
 }
 
+/* Fixed two-line lockup: the name previously broke after the comma
+   ("Randy Bryan Moore," / "MSW") and split to 4 lines on mobile. */
 .wordmark-title {
   font-family: var(--serif);
   font-size: 1.15rem;
   font-weight: 600;
   line-height: 1.15;
   color: var(--cream);
+  display: flex;
+  flex-direction: column;
+}
+
+.wordmark-title > span {
+  white-space: nowrap;
 }
 
 .wordmark-sub {
@@ -624,34 +632,45 @@ img {
 
 .candidate-profile-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 24px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 22px;
   border-bottom: 1.5px solid var(--line-light);
   padding-bottom: 28px;
   margin-bottom: 26px;
-  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .candidate-avatar-wrap {
-  display: flex;
-  gap: 24px;
-  align-items: center;
-  flex: 1;
-  min-width: 280px;
+  display: block;
+  min-width: 0;
 }
 
 .candidate-avatar {
-  width: clamp(260px, 22vw, 360px);
-  height: clamp(260px, 22vw, 360px);
-  min-width: 240px;
-  min-height: 240px;
+  width: 100%;
+  height: clamp(260px, 24vw, 360px);
   border-radius: 14px;
   border: 4px solid var(--cream);
   object-fit: cover;
+  object-position: center 22%;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
   background: var(--navy);
   display: block;
+}
+
+/* Name/role sit beside the QR beneath the portrait so the large
+   scannable QR never overlaps the candidate name. */
+.candidate-identity-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-width: 0;
+}
+
+.candidate-identity {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .candidate-name {
@@ -680,6 +699,21 @@ img {
   border-radius: 4px;
   border: 1px solid var(--line);
   text-align: center;
+  flex: 0 0 auto;
+  align-self: center;
+}
+
+/* Below ~560px the QR would squeeze the name into 3 lines, so stack them. */
+@media (max-width: 560px) {
+  .candidate-identity-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .candidate-qr-frame {
+    align-self: flex-start;
+  }
 }
 
 .candidate-qr-caption {
@@ -761,6 +795,18 @@ img {
   color: var(--cream);
 }
 
+/* Roadmap cards carry the maroon accent instead of the translucent
+   white fill, so the 30-60-90 plan reads as its own movement. */
+#roadmap .card-editorial {
+  background: var(--maroon);
+  border-color: rgba(242, 234, 223, 0.28);
+  color: var(--cream);
+}
+
+#roadmap .card-editorial .lifecycle-stage__tag {
+  background: rgba(242, 234, 223, 0.2) !important;
+}
+
 .card-editorial:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow);
@@ -816,14 +862,19 @@ img {
   overflow: hidden;
 }
 
+/* Tabs wrap instead of scrolling so every case study stays visible;
+   a horizontally scrolled tab could hide a case study from reviewers. */
 .tab-nav {
   display: flex;
+  flex-wrap: wrap;
   background: rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgba(242, 234, 223, 0.2);
-  overflow-x: auto;
 }
 
 .tab-btn {
+  flex: 1 1 auto;
+  justify-content: center;
+  text-align: center;
   padding: 16px 22px;
   font-family: var(--sans);
   font-size: 13px;
@@ -1156,6 +1207,11 @@ img {
   text-decoration: none;
   text-transform: uppercase;
   color: var(--maroon);
+  /* Inline link was 14px tall; pad it to an accessible tap target. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 4px 2px;
 }
 
 /* Alignment Matrix Table */
@@ -2070,5 +2126,60 @@ body.annotation-active {
   .dock-badge {
     font-size: 9px !important;
     padding: 1px 5px !important;
+  }
+}
+
+
+/* =======================================================================
+   Build Badge -- which agent last worked the page, and what version.
+   Shares the data-review-tools switch, so it never ships to the live
+   dossier. Edit the letter and version in index.html.
+   ======================================================================= */
+.build-badge {
+  position: fixed;
+  top: calc(var(--nav-h) + 10px);
+  right: 14px;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px 5px 5px;
+  border-radius: 999px;
+  background: rgba(13, 26, 50, 0.88);
+  border: 1px solid rgba(242, 234, 223, 0.28);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  font-family: var(--mono);
+  pointer-events: none;
+  user-select: none;
+}
+
+.build-badge-agent {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.build-badge-version {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--cream);
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .build-badge {
+    top: auto;
+    bottom: 12px;
+    left: 12px;
+    right: auto;
   }
 }

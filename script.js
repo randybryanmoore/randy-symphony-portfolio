@@ -1,4 +1,5 @@
 window.copyAllNotesAndReset = function(e) {
+  if (typeof window.reviewToolsEnabled === 'function' && !window.reviewToolsEnabled()) return;
   if (e && e.stopPropagation) { e.preventDefault(); e.stopPropagation(); }
   if (typeof window.executeCopyAndReset === 'function') {
     window.executeCopyAndReset();
@@ -13,6 +14,7 @@ window.copyAllNotesAndReset = function(e) {
 
 // Global Feedback Drawer Controllers (Available Immediately at Line 1)
 window.openFeedbackDrawer = function(e) {
+  if (typeof window.reviewToolsEnabled === 'function' && !window.reviewToolsEnabled()) return;
   if (e && e.stopPropagation) { e.preventDefault(); e.stopPropagation(); }
   const drawer = document.getElementById('feedback-drawer');
   if (drawer) {
@@ -26,6 +28,7 @@ window.openFeedbackDrawer = function(e) {
 };
 
 window.closeFeedbackDrawer = function(e) {
+  if (typeof window.reviewToolsEnabled === 'function' && !window.reviewToolsEnabled()) return;
   if (e && e.stopPropagation) { e.preventDefault(); e.stopPropagation(); }
   const drawer = document.getElementById('feedback-drawer');
   if (drawer) {
@@ -35,6 +38,7 @@ window.closeFeedbackDrawer = function(e) {
 };
 
 window.toggleFeedbackDrawer = function(e) {
+  if (typeof window.reviewToolsEnabled === 'function' && !window.reviewToolsEnabled()) return;
   if (e && e.stopPropagation) { e.preventDefault(); e.stopPropagation(); }
   const drawer = document.getElementById('feedback-drawer');
   if (drawer) {
@@ -45,6 +49,32 @@ window.toggleFeedbackDrawer = function(e) {
     }
   }
 };
+
+// =========================================================================
+// Review Tools Switch (annotation / feedback dock)
+// -------------------------------------------------------------------------
+// The pin-feedback dock, live-edit mode, inspector and notes drawer are
+// INTERNAL review tools. To go live, set this on the body tag in index.html:
+//
+//     <body data-review-tools="off">
+//
+// That strips the dock, popover, drawer and inspector from the DOM and skips
+// all of their event listeners and localStorage use. Per-visit override:
+// append ?review=1 to force them on, or ?review=0 to force them off.
+// =========================================================================
+function reviewToolsEnabled() {
+  try {
+    var param = new URLSearchParams(window.location.search).get('review');
+    if (param === '1' || param === 'on' || param === 'true') return true;
+    if (param === '0' || param === 'off' || param === 'false') return false;
+    var host = document.body || document.documentElement;
+    var attr = (host.getAttribute('data-review-tools') || 'on').toLowerCase();
+    return attr !== 'off' && attr !== 'false' && attr !== '0';
+  } catch (err) {
+    return false;
+  }
+}
+window.reviewToolsEnabled = reviewToolsEnabled;
 
 (function() {
   function initSuite() {
@@ -135,7 +165,14 @@ window.toggleFeedbackDrawer = function(e) {
         return `<img src="https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encoded}&color=182b4d" alt="QR Code" width="${size}" height="${size}" style="display:block; border-radius:4px;" />`;
       }
       const qrTargets = document.querySelectorAll('.qr-code-target');
-      const currentUrl = window.location.href.split('#')[0];
+      // The QR is scanned from a phone, so it must never encode a file:// or
+      // localhost URL -- those are unreachable off this machine. Only trust
+      // location.href when the page is actually served from a public host.
+      const CANONICAL_URL = 'https://symphony.randybryanmoore.us/';
+      const loc = window.location;
+      const isPubliclyServed = (loc.protocol === 'http:' || loc.protocol === 'https:') &&
+        !/^(localhost|127\.0\.0\.1|\[::1\]|0\.0\.0\.0)$/.test(loc.hostname);
+      const currentUrl = isPubliclyServed ? loc.href.split('#')[0] : CANONICAL_URL;
       qrTargets.forEach(el => {
         const sz = parseInt(el.getAttribute('data-size')) || 130;
         el.innerHTML = generateQRCodeSVG(currentUrl, sz);
@@ -310,9 +347,22 @@ window.toggleFeedbackDrawer = function(e) {
     }
 
     // =========================================================================
-    // 6. Pinpoint Annotation & Feedback Suite
+    // 6. Pinpoint Annotation & Feedback Suite  (internal review tooling)
     // =========================================================================
     try {
+      if (!reviewToolsEnabled()) {
+        // Remove the review UI outright so nothing ships to the live page.
+        ['annotation-dock', 'annotation-popover', 'feedback-drawer',
+         'inspector-box', 'build-badge'].forEach(function(id) {
+          const node = document.getElementById(id);
+          if (node) node.remove();
+        });
+        document.body.classList.remove('annotation-active');
+        document.querySelectorAll('.annotation-pin-marker, [data-annotation-id]')
+          .forEach(function(node) { node.remove(); });
+        return;
+      }
+
       let pinActive = false;
       let editActive = false;
       let pendingEl = null;
