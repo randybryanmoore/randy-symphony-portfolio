@@ -1323,6 +1323,27 @@ img {
   transform: translateY(-2px);
 }
 
+.timeline-item--maroon {
+  background: var(--maroon) !important;
+  border-color: rgba(242, 234, 223, 0.3) !important;
+}
+
+.timeline-item--maroon:hover {
+  background: var(--maroon-deep) !important;
+}
+
+.card-editorial--maroon {
+  background: var(--maroon) !important;
+  border-color: rgba(242, 234, 223, 0.3) !important;
+  color: var(--cream) !important;
+}
+
+.card-editorial--maroon h3,
+.card-editorial--maroon h4,
+.card-editorial--maroon p {
+  color: var(--cream) !important;
+}
+
 .timeline-item > span {
   font-family: var(--mono);
   font-size: 11.5px;
