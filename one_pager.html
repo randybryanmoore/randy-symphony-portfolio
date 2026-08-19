@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
   <title>Executive Candidate Briefing — Richmond Symphony | Randy Bryan Moore, MSW</title>
-  <link rel="stylesheet" href="styles.css?v=1787166310">
+  <link rel="stylesheet" href="styles.css?v=1787166560">
   <style>
     /* ------------------------------------------------------------------
        SELF-CONTAINED HANDOUT STYLES
@@ -108,14 +108,13 @@
     .dgrid > .dcard:nth-child(-n+2) { border-top: 1px solid var(--border-subtle); }
     .dgrid > .dcard:nth-child(even) { border-right: 1px solid var(--border-subtle); }
     .dcard:nth-child(1), .dcard:nth-child(4) { background: var(--cobalt); color: #fff; }
-    .dcard:nth-child(2) { background: var(--wine); color: #fff; }
-    .dcard:nth-child(3) { background: #fff; color: var(--charcoal); }
+    .dcard:nth-child(2), .dcard:nth-child(3) { background: var(--wine); color: #fff; }
     .dcard .dcard-num { position: relative; z-index: 1; display: block; font-family: var(--font-mono); font-size: 9px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; margin-bottom: 0.35rem; }
-    .dcard:nth-child(3) .dcard-num { color: var(--wine); opacity: 1; }
+    .dcard:nth-child(3) .dcard-num { color: #fff; opacity: 0.85; }
     .dcard h3 { position: relative; z-index: 1; font-size: 0.94rem; color: inherit; margin-bottom: 0.3rem; }
     .dcard p { position: relative; z-index: 1; font-size: 0.79rem; line-height: 1.4; color: inherit; opacity: 0.92; margin: 0; }
     .dcard::after { content: attr(data-mark); position: absolute; z-index: 0; right: -6px; bottom: -20px; font-family: var(--font-serif); font-weight: 500; font-size: 4.4rem; line-height: 1; color: currentColor; opacity: 0.1; pointer-events: none; }
-    .dcard:nth-child(3)::after { color: var(--charcoal); opacity: 0.07; }
+    .dcard:nth-child(3)::after { color: #fff; opacity: 0.1; }
     @media print {
       .dcard { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
@@ -155,13 +154,13 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      border-bottom: 2px solid var(--cobalt-mid);
+      border-bottom: 2px solid var(--wine);
       padding-bottom: 1rem;
       margin-bottom: 1.5rem;
     }
     .handout-title h1 {
       font-size: 2.1rem;
-      color: var(--cobalt);
+      color: var(--wine);
       margin-bottom: 0.2rem;
     }
     .handout-title p {
@@ -207,6 +206,32 @@
       font-size: 0.86rem;
       line-height: 1.45;
       margin-bottom: 0;
+    }
+
+    .handout-card--navy {
+      background: var(--cobalt) !important;
+      color: #ffffff !important;
+      border-left: 3px solid var(--wine) !important;
+    }
+    .handout-card--navy h3,
+    .handout-card--navy p {
+      color: #ffffff !important;
+    }
+    .handout-card--navy span {
+      color: var(--gold-light) !important;
+    }
+
+    .handout-card--wine {
+      background: var(--wine) !important;
+      color: #ffffff !important;
+      border-left: 3px solid var(--gold) !important;
+    }
+    .handout-card--wine h3,
+    .handout-card--wine p {
+      color: #ffffff !important;
+    }
+    .handout-card--wine span {
+      color: var(--gold-light) !important;
     }
 
     .portfolio-block {
@@ -355,19 +380,19 @@
         <strong>North Star:</strong> “Build trustworthy systems that protect donor intent, reduce staff friction, and turn relationship data into decisions.”
       </p>
       <div class="handout-grid-2">
-        <div class="handout-card">
-          <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--wine);">DAYS 01 – 30 • UNDERSTAND + VERIFY</span>
+        <div class="handout-card handout-card--navy">
+          <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--gold-light);">DAYS 01 – 30 • UNDERSTAND + VERIFY</span>
           <h3>Define $6.9M Goal &amp; Map Bloomerang</h3>
           <p>Audit Bloomerang CRM schema, custom fields &amp; integrations. Trace gift lifecycles &amp; Finance SLAs, interview Advancement/Finance teams, and identify quick wins.</p>
         </div>
-        <div class="handout-card">
-          <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--cobalt-mid);">DAYS 31 – 60 • STANDARDIZE + STRENGTHEN</span>
+        <div class="handout-card handout-card--navy">
+          <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--gold-light);">DAYS 31 – 60 • STANDARDIZE + STRENGTHEN</span>
           <h3>Workflows, Acknowledgments &amp; Coaching</h3>
-          <p>Codify shared data entry standards, automate gift &amp; acknowledgment workflows (<48h SLA), launch Advancement-Finance dashboard, and coach team.</p>
+          <p>Codify shared data entry standards, automate gift &amp; acknowledgment workflows (&lt;48h SLA), launch Advancement-Finance dashboard, and coach team.</p>
         </div>
       </div>
-      <div class="handout-card" style="margin-top: 0.75rem;">
-        <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--gold-ink);">DAYS 61 – 90+ • ANALYZE + BUILD FORWARD</span>
+      <div class="handout-card handout-card--wine" style="margin-top: 0.75rem;">
+        <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--gold-light);">DAYS 61 – 90+ • ANALYZE + BUILD FORWARD</span>
         <h3>Retention, Reporting Cadence &amp; Systems Roadmap</h3>
         <p>Review donor retention rates &amp; major gift pipeline velocity, finalize Board/Executive reporting cadence, launch automated data quality checks, and evaluate low-risk pilot.</p>
       </div>
@@ -476,6 +501,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=1787166310"></script>
+  <script src="script.js?v=1787166560"></script>
 </body>
 </html>
