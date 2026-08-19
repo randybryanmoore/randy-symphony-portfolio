@@ -912,7 +912,7 @@ img {
 /* Interactive Case Study Explorer */
 .case-study-explorer {
   border: 1px solid rgba(242, 234, 223, 0.3);
-  background: var(--block-fill);
+  background: var(--maroon);
   overflow: hidden;
 }
 
@@ -921,7 +921,7 @@ img {
 .tab-nav {
   display: flex;
   flex-wrap: wrap;
-  background: var(--block-fill);
+  background: rgba(0, 0, 0, 0.25);
   border-bottom: 1px solid rgba(242, 234, 223, 0.2);
 }
 
@@ -995,7 +995,7 @@ img {
 }
 
 .tab-stats-box {
-  background: var(--blue-top);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(242, 234, 223, 0.2);
   padding: 24px;
   display: grid;
