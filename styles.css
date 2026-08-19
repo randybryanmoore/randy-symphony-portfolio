@@ -921,7 +921,7 @@ img {
 .tab-nav {
   display: flex;
   flex-wrap: wrap;
-  background: rgba(0, 0, 0, 0.25);
+  background: var(--block-fill);
   border-bottom: 1px solid rgba(242, 234, 223, 0.2);
 }
 
@@ -955,7 +955,7 @@ img {
 
 .tab-btn.active {
   color: #ffffff;
-  background: var(--navy);
+  background: var(--blue-top);
   border-bottom-color: var(--gold-light);
   box-shadow: inset 0 2px 0 var(--gold-light);
 }
