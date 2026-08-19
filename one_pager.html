@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
   <title>Executive Candidate Briefing — Richmond Symphony | Randy Bryan Moore, MSW</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=1787166310">
   <style>
     /* ------------------------------------------------------------------
        SELF-CONTAINED HANDOUT STYLES
@@ -421,6 +421,61 @@
     </div>
   </div>
 
-  <script src="script.js?v=1787157201"></script>
+  <!-- Precision Element Hover Inspector Box -->
+  <div id="inspector-box" class="inspector-highlight-box">
+    <span id="inspector-badge" class="inspector-highlight-badge">Element</span>
+  </div>
+
+  <!-- Pinpoint Annotation & Feedback Suite -->
+  <div class="annotation-dock" id="annotation-dock" aria-label="Review & Annotation Tools">
+    <button class="dock-btn" id="dock-pin-mode-btn" title="Click any element on the page to add feedback">
+      <span>Pin Feedback</span>
+    </button>
+    <button class="dock-btn" id="dock-live-edit-btn" title="Edit copy directly in place">
+      <span>Live Edit</span>
+    </button>
+    <button class="dock-btn" id="dock-view-drawer-btn" onclick="window.toggleFeedbackDrawer(event)" title="View all pinned notes">
+      <span>Notes</span> <span class="dock-badge" id="dock-notes-count">0</span>
+    </button>
+  </div>
+
+  <!-- Precision Pinned Popover -->
+  <div class="annotation-popover" id="annotation-popover">
+    <div class="popover-header">
+      <span class="popover-title">Comment on Element</span>
+      <button class="popover-cancel-btn" id="popover-close-btn" aria-label="Close Popover">✕</button>
+    </div>
+    <div class="popover-target-snippet" id="popover-target-text"></div>
+    <div class="popover-tags">
+      <span class="tag-chip selected" data-tag="Copy">Copy</span>
+      <span class="tag-chip" data-tag="Design">Design</span>
+      <span class="tag-chip" data-tag="Data">Data</span>
+      <span class="tag-chip" data-tag="Layout">Layout</span>
+      <span class="tag-chip" data-tag="Note">Note</span>
+    </div>
+    <textarea class="popover-textarea" id="popover-comment-input" placeholder="Type your note or revision... (Press Enter to save)"></textarea>
+    <div class="popover-actions">
+      <button class="popover-cancel-btn" id="popover-dismiss-btn">Cancel (Esc)</button>
+      <button class="popover-pin-btn" id="popover-save-btn">Pin Note ↵</button>
+    </div>
+  </div>
+
+  <!-- Feedback Drawer -->
+  <div class="feedback-drawer" id="feedback-drawer">
+    <div class="drawer-header">
+      <h4>Review Notes (<span id="drawer-count">0</span>)</h4>
+      <button id="drawer-close-btn" onclick="window.closeFeedbackDrawer(event)" style="background: transparent; border: none; color: var(--cream); cursor: pointer; font-size: 1.1rem; padding: 2px 6px;">✕</button>
+    </div>
+    <div class="drawer-body" id="drawer-items-list">
+      <p style="color: var(--muted); font-size: 13px; font-style: italic;">No feedback pinned yet. Turn on 'Pin Feedback' and click any headline, paragraph, card, or button.</p>
+    </div>
+    <div class="drawer-footer">
+      <button id="drawer-copy-ai-btn" onclick="window.copyAllNotesAndReset(event)" class="button button-navy" style="width: 100%; justify-content: center; font-size: 12px; padding: 10px;">
+        Copy All Notes for Antigravity
+      </button>
+    </div>
+  </div>
+
+  <script src="script.js?v=1787166310"></script>
 </body>
 </html>
