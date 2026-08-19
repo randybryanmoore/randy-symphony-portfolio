@@ -72,7 +72,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=1787171766">
+  <link rel="stylesheet" href="styles.css?v=1787171855">
 </head>
 <!-- Review tooling switch: set data-review-tools="off" before going live to
      strip the pin-feedback dock, live edit, inspector and notes drawer. -->
@@ -1591,6 +1591,18 @@
         });
         navigator.clipboard.writeText(prompt).then(() => {
           copyAiBtn.innerText = 'Copied to Clipboard! ✓';
+          
+          // Reset the notes list
+          notesList = [];
+          try {
+            localStorage.setItem('rbm_symphony_notes', JSON.stringify(notesList));
+          } catch (e) {}
+          
+          // Remove all badges from the DOM
+          document.querySelectorAll('.annotation-element-badge').forEach(b => b.remove());
+          
+          updateDrawer();
+
           setTimeout(() => { copyAiBtn.innerText = 'Copy All Notes for Antigravity'; }, 2400);
         });
       });
@@ -1605,6 +1617,6 @@
 })();
 
   </script>
-  <script src="script.js?v=1787171766"></script>
+  <script src="script.js?v=1787171855"></script>
 </body>
 </html>
