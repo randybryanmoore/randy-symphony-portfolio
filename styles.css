@@ -769,19 +769,25 @@ img {
 }
 
 .pillar-item {
-  /* Dark blue insets inside the candidate card. */
-  background: var(--blue-top);
-  border: 1px solid rgba(242, 234, 223, 0.2);
-  border-left: 3.5px solid var(--maroon);
+  /* Rich brand red insets inside the candidate card */
+  background: var(--maroon);
+  border: 1px solid rgba(223, 202, 116, 0.35);
+  border-left: 4px solid var(--gold-light);
   padding: 14px 16px;
   border-radius: 6px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pillar-item:hover {
+  transform: translateX(3px);
+  box-shadow: 0 4px 12px rgba(76, 14, 28, 0.4);
 }
 
 .pillar-item strong {
   display: block;
   font-size: 15px;
   font-weight: 700;
-  color: var(--cream);
+  color: #ffffff;
   margin-bottom: 4px;
   line-height: 1.25;
 }
@@ -789,7 +795,7 @@ img {
 .pillar-item span {
   display: block;
   font-size: 13.5px;
-  color: rgba(242, 234, 223, 0.88);
+  color: rgba(255, 255, 255, 0.92);
   line-height: 1.48;
 }
 
