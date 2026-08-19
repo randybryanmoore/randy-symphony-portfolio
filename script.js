@@ -162,7 +162,7 @@ window.reviewToolsEnabled = reviewToolsEnabled;
     try {
       function generateQRCodeSVG(text, size = 130) {
         const encoded = encodeURIComponent(text);
-        return `<img src="https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encoded}&color=182b4d" alt="QR Code" width="${size}" height="${size}" style="display:block; border-radius:4px;" />`;
+        return `<img src="https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encoded}&color=4c0e1c" alt="QR Code" width="${size}" height="${size}" style="display:block; border-radius:4px;" />`;
       }
       const qrTargets = document.querySelectorAll('.qr-code-target');
       // The QR is scanned from a phone, so it must never encode a file:// or
