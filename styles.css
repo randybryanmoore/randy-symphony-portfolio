@@ -678,12 +678,11 @@ img {
 }
 
 .candidate-avatar {
-  /* The source headshot is square. A full-width fixed-height frame letterboxed
-     it to ~2.5:1 and cut the head off, so the frame keeps a 4:3 ratio and the
-     crop is anchored just above centre to hold the face. */
+  /* Source headshot is 1:1 square (960x959). Use 1:1 ratio with centered top crop
+     and max-width so it remains a balanced, undistorted portrait. */
   width: 100%;
-  aspect-ratio: 4 / 3;
-  max-height: 420px;
+  max-width: 360px;
+  aspect-ratio: 1 / 1;
   border-radius: 14px;
   border: 4px solid var(--cream);
   object-fit: cover;
@@ -691,6 +690,7 @@ img {
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
   background: var(--navy);
   display: block;
+  margin: 0 auto 20px;
 }
 
 /* Name/role sit beside the QR beneath the portrait so the large
@@ -1098,8 +1098,11 @@ img {
 
 .photo-frame img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 4;
+  max-height: 560px;
   object-fit: cover;
+  object-position: center;
+  border-radius: 6px;
 }
 
 .photo-frame figcaption {
