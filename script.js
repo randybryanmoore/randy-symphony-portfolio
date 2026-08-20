@@ -280,7 +280,7 @@ lifecycle:
 production:
   url: "${currentTelemetry.publicUrl}"
   state: "v1.6.6 live and verified"
-  verified_at: "2026-08-20T17:52:00-04:00"
+  verified_at: "2026-08-20T17:57:04-04:00"
   first_verified_serving_candidate: "df5f99e"
 release_artifacts:
   manifest: "${currentTelemetry.releaseManifest}"
@@ -327,7 +327,7 @@ This is the current operational snapshot. Reverify every changeable fact before 
 - Merged / Pull Request: Direct-to-main release; no PR.
 - Deployed: Yes — serving \`gh-pages\` and \`main\`; use Git readback for the current commit.
 - Staging: Not used.
-- Live / Production: \`v${currentTelemetry.serviceVersion}\` verified at the custom domain on Aug 20, 2026 at 5:52 PM EDT.
+- Live / Production: \`v${currentTelemetry.serviceVersion}\` verified at the custom domain on Aug 20, 2026 at 5:57 PM EDT.
 
 A commit is not a push. A push is not a deployment. A deployment is not confirmed live until production readback succeeds.
 
@@ -390,7 +390,7 @@ A commit is not a push. A push is not a deployment. A deployment is not confirme
 - \`DEPLOY-APPROVAL-001\` — Closed. Randy explicitly authorized publication.
 - Release lineage begins with source candidate \`f8b60a4\` on development \`main\`.
 - First verified serving candidate: \`df5f99e\`; later lifecycle-only commits must be resolved through Git instead of embedded self-referential SHAs.
-- Production readback: passed at the custom domain on Aug 20, 2026 at 5:52 PM EDT.
+- Production readback: passed at the custom domain on Aug 20, 2026 at 5:57 PM EDT.
 
 ## 9. Machine-readable companion
 Use “Copy Machine Telemetry (.YAML)” in the telemetry modal. Treat browser-generated state as a handoff snapshot, not as an independently verified Git or hosting measurement.`;

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-20T17:56:25-04:00",
+  "generated_at": "2026-08-20T17:57:59-04:00",
   "service_name": "richmond-symphony-candidate-dossier",
   "service_version": "1.6.6",
   "source": {
@@ -18,7 +18,7 @@
   "artifacts": [
     {
       "path": "index.html",
-      "sha256": "274149ac7763f288052edd8dbb8e60a3e70749f9a183a68dcf676c691867eb46"
+      "sha256": "b59beb273f3afe0cb18096eb9aeb015273e46a5ad27802fa8c4a25135b5c434c"
     },
     {
       "path": "styles.css",
@@ -26,15 +26,15 @@
     },
     {
       "path": "script.js",
-      "sha256": "5c91be97031910d843331fa96dbdfebba82b6f5b3174158f03a0085015177ad4"
+      "sha256": "5ee28fd96c047542ea6179572ce92b12afcd2c6115bdea5dc88ffc470f333ed2"
     },
     {
       "path": "one_pager.html",
-      "sha256": "5fe687c553931ca5fe52881fd2be8893eb1bbcf4ff9afaedb8a00dffcaddf4af"
+      "sha256": "aa0e91fcad6366720d2b5f06747eb0d5c38546a9aec526d079d624e03b68aacc"
     },
     {
       "path": "Randy_Bryan_Moore_Richmond_Symphony_Dossier.zip",
-      "sha256": "32678cb5d7e3487a315abca1906697c8a6f0d6fef424acb9950c7a0819d94f88"
+      "sha256": "a634337def1b2ba92603bff576a5d0852bccd57dcc7a814a7094dd036e8318ff"
     }
   ],
   "validation": {
