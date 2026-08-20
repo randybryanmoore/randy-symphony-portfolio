@@ -543,6 +543,7 @@ img {
   letter-spacing: -0.03em;
   line-height: 1.05;
   color: var(--cream);
+  text-align: center;
 }
 
 .home-hero h1 span {
