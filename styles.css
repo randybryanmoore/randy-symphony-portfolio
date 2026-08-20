@@ -1110,9 +1110,11 @@ img {
   width: 100%;
   aspect-ratio: 3 / 4;
   max-height: 560px;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   border-radius: 6px;
+  display: block;
+  margin: 0 auto;
 }
 
 .photo-frame figcaption {
@@ -1123,6 +1125,7 @@ img {
   text-transform: uppercase;
   color: inherit;
   opacity: 0.8;
+  text-align: center;
 }
 
 /* Musical Artistry & Web Audio Suite */
@@ -1130,6 +1133,7 @@ img {
   background: var(--blue-l2);
   border: 1px solid rgba(242, 234, 223, 0.25);
   padding: clamp(28px, 4vw, 44px);
+  text-align: center;
 }
 
 .player-console {
