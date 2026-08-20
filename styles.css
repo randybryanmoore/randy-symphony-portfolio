@@ -530,10 +530,10 @@ img {
   position: relative;
   z-index: 2;
   min-width: 0;
-  padding: clamp(60px, 8vw, 110px) clamp(24px, 5vw, 72px) 60px max(24px, calc((100vw - var(--shell)) / 2));
+  padding: clamp(36px, 4.5vw, 60px) clamp(24px, 5vw, 72px) 40px max(24px, calc((100vw - var(--shell)) / 2));
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .home-hero h1 {
@@ -587,55 +587,55 @@ img {
 }
 
 .home-hero .hero-paths .button {
-  border: 1.5px solid rgba(242, 234, 223, 0.6);
+  border-radius: 4px;
+  font-size: 13px;
+  padding: 12px 20px;
 }
 
 .home-hero .hero-paths .button:hover {
-  border-color: var(--cream);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 .home-hero .hero-paths .button-navy {
-  background: var(--blue-l3);
+  background: var(--blue-top);
+  border-color: rgba(242, 234, 223, 0.3);
 }
 
 .home-hero .hero-paths .button-navy:hover {
-  background: var(--navy-light);
+  background: var(--block-fill);
+  border-color: var(--cream);
 }
 
-/* Continuous Note Ticker */
+/* Continuous Note Strip under paths */
 .hero-note {
-  width: 100%;
-  max-width: 640px;
-  margin: 20px 0 0;
-  padding-top: 24px;
-  overflow: hidden;
+  border: 1px solid rgba(242, 234, 223, 0.25);
+  background: var(--blue-top);
   color: var(--cream);
-  font-family: var(--serif);
-  font-size: clamp(20px, 2.2vw, 32px);
-  font-style: italic;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  border-top: 2px solid var(--cream);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  overflow: hidden;
+  position: relative;
+  max-width: 620px;
 }
 
 .hero-note-track {
   display: flex;
   width: max-content;
-  align-items: center;
-  animation: hero-note-slide 20s linear infinite;
   white-space: nowrap;
+  animation: hero-note-slide 32s linear infinite;
+  will-change: transform;
+  padding-block: 10px;
+}
+
+.hero-note:hover .hero-note-track {
+  animation-play-state: paused;
 }
 
 .hero-note-track span {
   padding-inline: 1.8rem;
-}
-
-.hero-note-track span::after {
-  margin-left: 1.8rem;
-  content: "◆";
-  font-size: 0.45em;
-  vertical-align: middle;
 }
 
 @keyframes hero-note-slide {
@@ -679,10 +679,8 @@ img {
 }
 
 .candidate-avatar {
-  /* Source headshot is 1:1 square (960x959). Use 1:1 ratio with centered top crop
-     and max-width so it remains a balanced, undistorted portrait. */
   width: 100%;
-  max-width: 360px;
+  max-width: 420px;
   aspect-ratio: 1 / 1;
   border-radius: 14px;
   border: 4px solid var(--cream);
