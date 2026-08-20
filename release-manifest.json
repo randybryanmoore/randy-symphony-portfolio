@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-20T17:15:36-04:00",
+  "generated_at": "2026-08-20T17:50:32-04:00",
   "service_name": "richmond-symphony-candidate-dossier",
-  "service_version": "1.6.5",
+  "service_version": "1.6.6",
   "source": {
     "repository": "randybryanmoore/randybryanmoore-dot-us",
     "branch": "main",
-    "base_commit": "31f12ed",
-    "working_tree": "release telemetry update"
+    "base_commit": "97e003c3277cd03b64b35f4eac727832c7eb5773",
+    "working_tree": "modified"
   },
   "lifecycle": {
     "committed": true,
@@ -18,33 +18,27 @@
   "artifacts": [
     {
       "path": "index.html",
-      "sha256": "6e60ddbf0ba3b13394f63b57062295a418632e5184faf7ad59daf96ce000cddd"
+      "sha256": "4ce3ce6c5ef4ae5e9c68664b00455fd989e9c25405d0133408965221f4cbe1ab"
     },
     {
       "path": "styles.css",
-      "sha256": "35001e9e42225889e235dc9bbc7fb4e4912597f91629d98d38bc728da7b1931a"
+      "sha256": "f0b1a57612eed51200f75226e03b6918f57a2ba48901666f53e04702e05d2a20"
     },
     {
       "path": "script.js",
-      "sha256": "2140c8de10a58cce52637ca821cd8a31743f7d1a5dbf7d4f069fa2c28785805c"
+      "sha256": "e504165d27e6e676da2f792281e5e1031f36337a1812e00c210446d4879ab677"
     },
     {
       "path": "one_pager.html",
-      "sha256": "25ae4fda5b678459bb645560af8721afc694ed15f6254f65a4768b6de2894517"
+      "sha256": "4bed491dd3a79453a0cb430e197cb4c89b3b685e3cd2669bf9d909a852d4b699"
     },
     {
       "path": "Randy_Bryan_Moore_Richmond_Symphony_Dossier.zip",
-      "sha256": "e160d8dc11250d5b82e840e7d423c08a414cd683e8857d8cb9c6379b8c531b6a"
+      "sha256": "41922f22991832c3c12c5364942c263232977f6b1995214b2134db55edf2a23a"
     }
   ],
   "validation": {
-    "javascript_syntax": "pass",
-    "diff_whitespace": "pass",
-    "offline_archive_source_readback": "pass",
-    "browser_interaction": "file_url_automation_unavailable_production_http_readback_used",
-    "production_readback": "pass",
-    "production_verified_at": "2026-08-20T17:15:36-04:00",
-    "first_verified_serving_candidate": "874e48f"
+    "production_readback": "pass"
   },
   "blockers": [
     {
