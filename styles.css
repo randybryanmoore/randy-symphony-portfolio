@@ -538,10 +538,10 @@ img {
 
 .home-hero h1 {
   margin-bottom: 20px;
-  font-size: clamp(36px, 4.8vw, 68px);
+  font-size: clamp(44px, 5.8vw, 84px);
   font-weight: 700;
   letter-spacing: -0.03em;
-  line-height: 1.05;
+  line-height: 1.04;
   color: var(--cream);
   text-align: center;
 }
@@ -730,13 +730,13 @@ img {
 
 .candidate-qr-frame {
   background: #ffffff;
-  padding: 6px;
-  border-radius: 6px;
+  padding: 8px;
+  border-radius: 8px;
   border: 1.5px solid var(--maroon);
   text-align: center;
   flex: 0 0 auto;
   align-self: center;
-  box-shadow: 0 2px 8px rgba(76, 14, 28, 0.25);
+  box-shadow: 0 4px 16px rgba(76, 14, 28, 0.3);
 }
 
 /* Below ~560px stack them */
@@ -755,12 +755,12 @@ img {
 .candidate-qr-caption {
   display: block;
   font-family: var(--mono);
-  font-size: 8.5px;
+  font-size: 10.5px;
   font-weight: 800;
   text-transform: uppercase;
   color: var(--maroon);
-  margin-top: 3px;
-  letter-spacing: 0.05em;
+  margin-top: 6px;
+  letter-spacing: 0.1em;
 }
 
 .pillar-list {
@@ -2154,7 +2154,7 @@ body[data-review-tools="on"] {
 
 @media (max-width: 640px) {
   .home-hero h1 {
-    font-size: clamp(36px, 9.5vw, 54px);
+    font-size: clamp(40px, 10.5vw, 64px);
     margin-bottom: 16px;
   }
 
