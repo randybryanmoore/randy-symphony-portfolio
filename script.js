@@ -366,6 +366,7 @@ A commit is not a push. A push is not a deployment. A deployment is not confirme
 - Added a collapsed version-number key defining MAJOR.MINOR.PATCH thresholds, reset rules, example readings, and the pre-release meaning of -rc.
 - Applied the dossier's editorial convention globally: visible standalone “and” becomes “&”, while existing “//” remains the structural divider.
 - Added an engineering-time disclosure that previews on hover or focus, persists on click or tap, and documents the exact agent-hour arithmetic, active-block method, 10-minute break rule, exclusions, and historical precision limits.
+- Relabeled every dashboard entry point as a fictional Advancement Intelligence concept prototype and added an adjacent no-live-systems / no-donor-data disclosure.
 
 ## 6. Safe release protocol
 1. Explain the intended source changes in 3–7 bullets.
