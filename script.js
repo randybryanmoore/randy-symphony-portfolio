@@ -255,11 +255,9 @@
     drawWaveform();
 
     // =========================================================================
-    // 6. Pinpoint Annotation & Direct Feedback Suite
+    // 6. Pinpoint Annotation & Direct Feedback Suite (Multi-Element Batch Support)
     // =========================================================================
-    let pendingEl = null;
-    let pendingTag = '';
-    let pendingText = '';
+    let selectedElements = []; // Array of { el, tag, text }
     let selectedCategory = 'Copy';
     let notesList = [];
 
@@ -279,6 +277,7 @@
     const inspectorBadge = document.getElementById('inspector-badge');
 
     const popover = document.getElementById('annotation-popover');
+    const popoverTitle = document.querySelector('.annotation-popover .popover-title');
     const popoverText = document.getElementById('popover-target-text');
     const popoverInput = document.getElementById('popover-comment-input');
     const popoverSave = document.getElementById('popover-save-btn');
@@ -291,6 +290,53 @@
     const drawerCount = document.getElementById('drawer-count');
     const drawerList = document.getElementById('drawer-items-list');
     const copyAiBtn = document.getElementById('drawer-copy-ai-btn');
+
+    function escapeHtml(str) {
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function renderSelectedElementsSnippet() {
+      if (!popoverText) return;
+      if (selectedElements.length === 0) {
+        popoverText.innerHTML = '<span style="color:var(--muted); font-style:italic;">No elements selected</span>';
+        if (popoverTitle) popoverTitle.innerText = 'Comment on Element';
+        return;
+      }
+      
+      if (popoverTitle) {
+        popoverTitle.innerText = selectedElements.length === 1 
+          ? 'Comment on Element' 
+          : `Comment on ${selectedElements.length} Elements`;
+      }
+
+      const chipsHtml = selectedElements.map((item, idx) => `
+        <div class="annotation-selection-chip" style="display:flex; justify-content:space-between; align-items:center; width:100%; background:var(--cream); padding:4px 8px; border-radius:4px; margin-bottom:4px; font-size:11px; border:1px solid var(--line);">
+          <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:240px; color:var(--ink);">
+            <strong style="color:var(--maroon);">&lt;${item.tag}&gt;</strong> "${escapeHtml(item.text)}"
+          </span>
+          <button type="button" onclick="window.removeSelectedAnnotationElement(${idx})" title="Remove item" style="cursor:pointer; background:none; border:none; color:var(--maroon); font-weight:800; padding:0 4px; font-size:12px; line-height:1;">✕</button>
+        </div>
+      `).join('');
+
+      popoverText.innerHTML = `
+        <div style="max-height:100px; overflow-y:auto; margin-bottom:4px;">${chipsHtml}</div>
+        <div style="font-size:10px; color:var(--muted); font-family:var(--mono);">💡 Click any other element to add/remove it from this note</div>
+      `;
+    }
+
+    window.removeSelectedAnnotationElement = function(index) {
+      if (index >= 0 && index < selectedElements.length) {
+        const removed = selectedElements.splice(index, 1)[0];
+        if (removed && removed.el) {
+          removed.el.classList.remove('annotation-target-selected');
+        }
+        if (selectedElements.length === 0) {
+          closePopover();
+        } else {
+          renderSelectedElementsSnippet();
+        }
+      }
+    };
 
     // Toggle Pin Mode
     if (pinToggle) {
@@ -399,7 +445,7 @@
       }
     });
 
-    // Click to Target and Open Popover
+    // Click to Target and Open Popover (with Multi-Element Selection)
     document.addEventListener('click', (e) => {
       if (editActive && e.target.closest('a')) {
         e.preventDefault(); // Prevent navigating away while editing links
@@ -411,22 +457,37 @@
       e.preventDefault();
       e.stopPropagation();
 
-      pendingEl = e.target;
-      const text = pendingEl.innerText ? pendingEl.innerText.trim() : (pendingEl.getAttribute('alt') || pendingEl.getAttribute('title') || '');
-      pendingTag = pendingEl.tagName.toLowerCase();
-      pendingText = text.length > 75 ? text.substring(0, 72) + '...' : (text || `<${pendingTag}> element`);
+      const clickedEl = e.target;
+      const existingIdx = selectedElements.findIndex(item => item.el === clickedEl);
 
-      if (popoverText) {
-        popoverText.innerHTML = `<strong>&lt;${pendingTag}&gt;</strong> "${pendingText}"`;
-      }
-      if (popoverInput) {
-        popoverInput.value = '';
+      if (existingIdx !== -1) {
+        // Toggle OFF if clicked again
+        selectedElements.splice(existingIdx, 1);
+        clickedEl.classList.remove('annotation-target-selected');
+        if (selectedElements.length === 0) {
+          closePopover();
+          return;
+        }
+      } else {
+        // Add to multi-selection
+        const rawText = clickedEl.innerText ? clickedEl.innerText.trim() : (clickedEl.getAttribute('alt') || clickedEl.getAttribute('title') || '');
+        const tag = clickedEl.tagName.toLowerCase();
+        const snippet = rawText.length > 75 ? rawText.substring(0, 72) + '...' : (rawText || `<${tag}> element`);
+
+        clickedEl.classList.add('annotation-target-selected');
+        selectedElements.push({
+          el: clickedEl,
+          tag: tag,
+          text: snippet
+        });
       }
 
-      const rect = pendingEl.getBoundingClientRect();
+      renderSelectedElementsSnippet();
+
+      const rect = clickedEl.getBoundingClientRect();
       if (popover) {
-        const popoverWidth = 330;
-        const popoverHeight = 240;
+        const popoverWidth = 340;
+        const popoverHeight = 270;
         let topPos = rect.bottom + 8;
         let leftPos = Math.max(16, Math.min(window.innerWidth - popoverWidth - 16, rect.left));
 
@@ -438,45 +499,51 @@
         popover.style.left = leftPos + 'px';
         popover.style.display = 'block';
 
-        setTimeout(() => { if (popoverInput) popoverInput.focus(); }, 50);
+        if (selectedElements.length === 1) {
+          setTimeout(() => { if (popoverInput) popoverInput.focus(); }, 50);
+        }
       }
     });
 
-    // Save Annotation Note
+    // Save Annotation Note (Batch Multi-Element Support)
     function saveNote() {
       const comment = popoverInput ? popoverInput.value.trim() : '';
-      if (!comment) return;
+      if (!comment || selectedElements.length === 0) return;
 
-      const num = notesList.length + 1;
-      const noteId = 'note-' + Date.now();
+      selectedElements.forEach((item, idx) => {
+        const num = notesList.length + 1;
+        const noteId = 'note-' + Date.now() + '-' + idx;
 
-      if (pendingEl) {
-        pendingEl.classList.add('annotation-target-active');
-        pendingEl.setAttribute('data-annotation-id', noteId);
+        if (item.el) {
+          item.el.classList.remove('annotation-target-selected');
+          item.el.classList.add('annotation-target-active');
+          item.el.setAttribute('data-annotation-id', noteId);
 
-        const badge = document.createElement('span');
-        badge.className = 'annotation-element-badge';
-        badge.innerText = num;
-        badge.title = `[${selectedCategory}] ${comment}`;
-        badge.setAttribute('data-badge-id', noteId);
-        badge.addEventListener('click', (ev) => {
-          ev.stopPropagation();
-          if (drawer) drawer.style.display = 'flex';
-        });
-        pendingEl.appendChild(badge);
-      }
+          const badge = document.createElement('span');
+          badge.className = 'annotation-element-badge';
+          badge.innerText = num;
+          badge.title = `[${selectedCategory}] ${comment}`;
+          badge.setAttribute('data-badge-id', noteId);
+          badge.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            if (drawer) drawer.style.display = 'flex';
+          });
+          item.el.appendChild(badge);
+        }
 
-      const newNote = {
-        id: num,
-        noteId: noteId,
-        tag: pendingTag,
-        category: selectedCategory,
-        targetText: pendingText,
-        comment: comment,
-        createdAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
+        const newNote = {
+          id: num,
+          noteId: noteId,
+          tag: item.tag,
+          category: selectedCategory,
+          targetText: item.text,
+          comment: comment,
+          createdAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
 
-      notesList.push(newNote);
+        notesList.push(newNote);
+      });
+
       try {
         localStorage.setItem('rbm_symphony_notes', JSON.stringify(notesList));
       } catch (e) {}
@@ -487,7 +554,11 @@
 
     function closePopover() {
       if (popover) popover.style.display = 'none';
-      pendingEl = null;
+      selectedElements.forEach(item => {
+        if (item.el) item.el.classList.remove('annotation-target-selected');
+      });
+      selectedElements = [];
+      if (popoverInput) popoverInput.value = '';
     }
 
     if (popoverSave) popoverSave.addEventListener('click', saveNote);
