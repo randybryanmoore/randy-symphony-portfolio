@@ -994,8 +994,8 @@ img {
 }
 
 .tab-stats-box {
-  background: var(--blue-top);
-  border: 1px solid rgba(242, 234, 223, 0.2);
+  background: var(--maroon);
+  border: 1px solid rgba(242, 234, 223, 0.25);
   padding: 24px;
   display: grid;
   grid-template-columns: 1fr 1fr;
